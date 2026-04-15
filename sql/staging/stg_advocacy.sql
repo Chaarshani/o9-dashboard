@@ -10,10 +10,10 @@ SELECT
   NULLIF(TRIM(customer_portfolio), '')                                 AS portfolio,
   NULLIF(TRIM(client_manager), '')                                     AS client_manager,
   NULLIF(TRIM(time__calendar_month_), '')                              AS calendar_month,
-  SAFE.PARSE_DATE('%B %Y', time__calendar_month_)                      AS period_month,
+  SAFE.PARSE_DATE('%Y-%m-%d', time__calendar_month_)                   AS period_month,
   CAST(FORMAT_DATE('%Y%m%d',
-    COALESCE(SAFE.PARSE_DATE('%B %Y', time__calendar_month_),
-             CURRENT_DATE())) AS INT64)                                AS date_sk,
+    COALESCE(SAFE.PARSE_DATE('%Y-%m-%d', time__calendar_month_),
+             CURRENT_DATE())) AS INT64)                                 AS date_sk,                           
   SAFE.PARSE_DATE('%m/%d/%Y', last_reviewed_date)                      AS last_review_date,
   NULLIF(TRIM(referenceability), '')                                   AS referenceability,
   CASE
