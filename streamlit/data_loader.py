@@ -1,21 +1,12 @@
 from google.cloud import bigquery
-from google.oauth2 import service_account
 import pandas as pd
 import streamlit as st
-import os
 
-PROJECT  = "o9-dashboard-493005"
+PROJECT = "o9-dashboard-493419"
 LOCATION = "asia-southeast3"
 
 @st.cache_resource
 def get_client():
-    key_path = "secrets/service_account.json"
-    if os.path.exists(key_path):
-        credentials = service_account.Credentials.from_service_account_file(
-            key_path,
-            scopes=["https://www.googleapis.com/auth/bigquery"]
-        )
-        return bigquery.Client(project=PROJECT, credentials=credentials, location=LOCATION)
     return bigquery.Client(project=PROJECT, location=LOCATION)
 
 @st.cache_data(ttl=3600)
